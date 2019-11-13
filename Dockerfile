@@ -1,5 +1,5 @@
 #step 1: build esp-open-sdk from source
-FROM ubuntu:16.04 as builder
+FROM ubuntu:18.04 as builder
 
 RUN groupadd -g 1000 docker && useradd docker -u 1000 -g 1000 -s /bin/bash --no-create-home
 RUN mkdir /build && chown docker:docker /build
@@ -17,7 +17,9 @@ RUN su docker -c " \
 
 
 #step 2: copy result to new docker image => reduce the image's size
-FROM ubuntu:16.04
+FROM ubuntu:18.04
+
+RUN apt-get update && apt-get install -y make python python-serial
 
 COPY --from=builder /build/esp-open-sdk/xtensa-lx106-elf /opt/xtensa-lx106-elf
 
