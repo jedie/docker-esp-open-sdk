@@ -19,7 +19,9 @@ RUN su docker -c " \
 #step 2: copy result to new docker image => reduce the image's size
 FROM ubuntu:16.04
 
-RUN apt-get update && apt-get install -y make python python-serial
-
 COPY --from=builder /build/esp-open-sdk/xtensa-lx106-elf /opt/xtensa-lx106-elf
+
 ENV PATH /opt/xtensa-lx106-elf/bin:$PATH
+
+WORKDIR /data
+VOLUME ["/data"]
