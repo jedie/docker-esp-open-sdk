@@ -1,2 +1,2 @@
 all:
-	docker build . -f esp-sdk-dockerfile -t esp-sdk
+	docker build . -t nhnghia/esp-open-sdk
