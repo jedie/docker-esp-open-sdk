@@ -4,6 +4,10 @@ FROM ubuntu:18.04 as builder
 RUN groupadd -g 1000 docker && useradd docker -u 1000 -g 1000 -s /bin/bash --no-create-home
 RUN mkdir /build && chown docker:docker /build
 
+ENV TERM=xterm\
+    TZ=Europe/Paris\
+    DEBIAN_FRONTEND=noninteractive
+
 RUN apt-get update && apt-get install -y \
   make unrar-free autoconf automake libtool gcc g++ gperf \
   flex bison texinfo gawk ncurses-dev libexpat-dev python-dev python python-serial \
