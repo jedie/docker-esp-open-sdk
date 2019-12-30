@@ -20,7 +20,7 @@ RUN groupadd -g 1000 docker && useradd docker -u 1000 -g 1000 -s /bin/bash --no-
 #   [ERROR]  You must NOT be root to run crosstool-NG
 # So we add the normal user 'docker' and use him:
 RUN cd /build/esp-open-sdk/ \
-    && su docker -c "make STANDALONE=n"
+    && su docker -c "make STANDALONE=y"
 
 
 # step 2: copy result to new docker image => reduce the image's size
