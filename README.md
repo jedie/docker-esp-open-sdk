@@ -1,4 +1,7 @@
 # docker-esp-open-sdk
+
+![badge.svg](https://github.com/jedie/docker-esp-open-sdk/workflows/Build%20docker%20image/badge.svg?branch=master)
+
 Dockerfile for https://github.com/pfalcon/esp-open-sdk
 
 Available here: https://hub.docker.com/r/jedie/esp-open-sdk
