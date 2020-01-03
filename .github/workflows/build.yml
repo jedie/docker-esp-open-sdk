@@ -1,18 +1,31 @@
 name: Build docker image
 
-on:
-  push:
-    # Publish `master` as Docker `latest` image.
-    branches:
-      - master
+on: [push]
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@master
-    - name: build
+    - uses: actions/checkout@v1
+
+    - name: "build docker image"
       run: |
         docker build . -t jedie/esp-open-sdk:latest
-        echo "${{ secrets.DOCKER_TOKEN }}" | docker login --username ${{ secrets.DOCKER_USERNAME }} --password-stdin
-        docker push jedie/esp-open-sdk;
+
+    - name: "print version informations"
+      run: |
+        docker run jedie/esp-open-sdk:latest /mpy/micropython/ports/unix/micropython -c "import sys;print(sys.implementation)"
+
+  release:
+    name: release
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/master'
+    needs:
+      - build
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: "push image to docker hub"
+        run: |
+          echo "${{ secrets.DOCKER_TOKEN }}" | docker login --username ${{ secrets.DOCKER_USERNAME }} --password-stdin
+          docker push jedie/esp-open-sdk;
