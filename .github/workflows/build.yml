@@ -1,6 +1,9 @@
 name: Build docker image
 
 on:
+  schedule:
+    # Runs at 08:00 UTC every day
+    - cron: '0 8 * * *'
   push:
     # Publish `master` as Docker `latest` image.
     branches:
